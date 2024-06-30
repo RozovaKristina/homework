@@ -6,9 +6,8 @@ def mask_account_card(cards_number: str) -> str:
     """Функция общей маскировки карты и счета"""
     if len(cards_number) < 16:
         return "Некорректный ввод"
-
     if "Счет" in cards_number:
-        masked_payment = f"Счет {get_mask_account(cards_number[5:])}"
+        return  f"Счет {get_mask_account(cards_number[5:])}"
     else:
         card = get_mask_card_number(cards_number[-16:])
         masked_payment = f"{cards_number.replace(cards_number[-16:], card)} "
