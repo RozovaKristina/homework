@@ -1,9 +1,10 @@
-def filter_by_currency(transactions, currency):
-    """Функция возвращает id операции из списка словарей"""
 
-    for key in transactions:
-        if key["operationAmount"]["currency"]["name"] == currency:
-            return key["id"]
+def filter_by_currency(operations, currency):
+    """Функция возвращает id операции из списка словарей"""
+    for operation in operations:
+        if operation['currency'] == currency:
+            yield operation
+
 
 
 def transaction_descriptions(transactions):
