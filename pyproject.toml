@@ -34,7 +34,13 @@ exclude = 'venv'
 
 [tool.black]
 line-length = 119
-exclude = ""
+exclude = '''
+/(
+.git
+| .mypy_cache
+| .venv
+)/
+'''
 
 [tool.isort]
 line_length = 119
