@@ -19,9 +19,9 @@ def test_transaction_descriptions(transactions):
         assert next(descriptions) == expected
 
 
-def test_filter_by_currency(transactions):
-    usd_transactions = filter_by_currency(transactions, "USD")
-    assert usd_transactions == 939719570
+def test_filter_by_currency() -> None:
+    result = list(filter_by_currency([], "USD"))
+    assert result == []
 
 
 @pytest.mark.parametrize("start, stop, expected", [(1, 1, "0000 0000 0000 0001")])

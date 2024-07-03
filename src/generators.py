@@ -1,8 +1,8 @@
-
-def filter_by_currency(operations, currency):
-    """Функция возвращает id операции из списка словарей"""
+from typing import Generator
+def filter_by_currency(operations: list, currency: str) -> Generator:
+    """Функция возвращает итератор из списка словарей"""
     for operation in operations:
-        if operation['currency'] == currency:
+        if operation["operationAmount"]['currency']["code"] == currency:
             yield operation
 
 

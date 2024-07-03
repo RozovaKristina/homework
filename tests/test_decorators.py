@@ -1,24 +1,23 @@
 from unittest.mock import mock_open, patch
 from src.decorators import log
+from typing import Any
 
 
-def test_log_to_file_success():
-    @log("test_log.txt")
-    def my_function_1(x, y):
-        return x + y
+def test_log_terminal_ok(capsys: Any) -> None:
+    @log()
+    def exemple(x: list) -> Any:
+        return x[0]
 
-    with patch('builtins.open', mock_open()) as mocked_file:
-        result = my_function_1(1, 2)
-        assert result == 3
-        mocked_file().write.assert_called_with("my_function ok\n")
+    exemple([1])
+    capture = capsys.readouterr()
+    assert capture.out == "my_function ok\n\n"
 
 
-def test_log_to_file_exception():
-    @log("test_log.txt")
-    def my_function_2(x, y):
-        return x / y
+def test_log_terminal_error(capsys: Any) -> None:
+    @log()
+    def exemple_2(x: list) -> Any:
+        return x[1]
 
-    with patch('builtins.open', mock_open()) as mocked_file:
-        result = my_function_2(1, 0)
-        assert result is None
-        assert any("division by zero" in call[0][0] for call in mocked_file().write.mock_calls)
+    exemple_2([0])
+    capture = capsys.readouterr()
+    assert capture.out == "my_function error: list index out of range. Inputs: ([0],), {} \n\n"

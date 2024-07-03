@@ -7,18 +7,18 @@ def log(filename: str | None = None) -> Callable:
 
     def decorator(func: Callable) -> Callable:
         @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+        def wrapper(*args: list, **kwargs: dict) -> Any:
             try:
                 result = func(*args, **kwargs)
-                log_messege = "my_function ok\n"
+                log_message = "my_function ok\n"
             except Exception as e:
                 result = None
-                log_messege = f"my_function error: {e}. Inputs: {args}, {kwargs} \n"
+                log_message = f"my_function error: {e}. Inputs: {args}, {kwargs} \n"
             if filename:
                 with open(filename, "a", encoding="utf-8") as file:
-                    file.write(log_messege)
+                    file.write(log_message)
             else:
-                print(log_messege)
+                print(log_message)
             return result
 
         return wrapper
